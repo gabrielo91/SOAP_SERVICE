@@ -19,6 +19,8 @@ namespace SOAP_SERVICE
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
+        [OperationContract]
+        string GetToken(string userName, string password);
         // TODO: agregue aquí sus operaciones de servicio
     }
 

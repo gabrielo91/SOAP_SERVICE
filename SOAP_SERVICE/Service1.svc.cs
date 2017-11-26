@@ -29,5 +29,17 @@ namespace SOAP_SERVICE
             }
             return composite;
         }
+
+        public string GetToken(string userName, string password)
+        {
+            if (userName == "testUser" && password == "testPassword")
+            {
+                return Guid.NewGuid().ToString();
+            }
+            else
+            {
+                return "you failed";
+            }
+        }
     }
 }
