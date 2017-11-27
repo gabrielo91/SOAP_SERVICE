@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOAP_SERVICE.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,36 +15,44 @@ namespace SOAP_SERVICE
     {
 
         [OperationContract]
+        [FaultContract(typeof(ExceptionMessage))]
         string GetData(int value);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [FaultContract(typeof(ExceptionMessage))]
+        string GetToken(string userName, string password);
 
         [OperationContract]
-        string GetToken(string userName, string password);
+        [FaultContract(typeof(ExceptionMessage))]
+        List<LecturasModel> GetLecturas();
+
+        [OperationContract]
+        [FaultContract(typeof(ExceptionMessage))]
+        LecturasModel GetLectura(int id);
+
+        [OperationContract]
+        [FaultContract(typeof(ExceptionMessage))]
+        String AddLecturas(LecturasModel lectura);
+
         // TODO: agregue aquí sus operaciones de servicio
     }
 
-
-    // Utilice un contrato de datos, como se ilustra en el ejemplo siguiente, para agregar tipos compuestos a las operaciones de servicio.
     [DataContract]
-    public class CompositeType
+    public class ExceptionMessage
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
+        private string infoExceptionMessage;
+        public ExceptionMessage(string Message)
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            this.infoExceptionMessage = Message;
         }
-
         [DataMember]
-        public string StringValue
+        public string errorMessageOfAction
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            get { return this.infoExceptionMessage; }
+            set { this.infoExceptionMessage = value; }
         }
     }
+
+
+
 }
